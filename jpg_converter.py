@@ -10,6 +10,7 @@ from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--p', type=str, help='folder path that includes images.')
+parser.add_argument('--to', default="None", type=str, help='folder path to export jpg images.')
 args = parser.parse_args()
 
 assert args.p, 'need path that includes images.'
@@ -24,5 +25,8 @@ for p in tqdm(pathes):
     image = cv2.imread(p)
     if image is None:
         continue
-    cv2.imwrite(os.path.join(args.p, name+'.jpg'), image)
+    if args.to != "None":
+        cv2.imwrite(os.path.join(args.to, name+'.jpg'), image)
+    else:
+        cv2.imwrite(os.path.join(args.p, name+'.jpg'), image)
     
